@@ -15,8 +15,8 @@ int fft_forward(double* in, double* out, int N) {
 extern "C" {
 int fft_backward(double* in, double* out, int N) {
   fftw_plan plan;
-  fftw_complex* cout = (fftw_complex*)out;
-  plan = fftw_plan_dft_c2r_1d( N, cout, in, FFTW_ESTIMATE );
+  fftw_complex* cin = (fftw_complex*)in;
+  plan = fftw_plan_dft_c2r_1d( N, cin, out, FFTW_ESTIMATE );
   fftw_execute(plan);
   return N;
 }
