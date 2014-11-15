@@ -32,6 +32,7 @@ int main( void ){
   }
 
   plan = fftw_plan_dft_c2r_1d( N, b, a, FFTW_ESTIMATE );
+  fftw_execute(plan);
 
   printf("--- retransform value\n");
   for( n=0; n<N; n++ ){
