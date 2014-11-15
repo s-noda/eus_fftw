@@ -25,5 +25,6 @@ catkin_package()
 
 add_executable(eus_fftw_test src/eus_fftw_test.c)
 TARGET_LINK_LIBRARIES(eus_fftw_test ${FFTW_LIBRARIES})
-## add_library(eus_qp SHARED src/qp_lib.cpp)
+add_library(eus_fftw SHARED src/eus_fftw_lib.cpp)
+TARGET_LINK_LIBRARIES(eus_fftw ${FFTW_LIBRARIES})
 
