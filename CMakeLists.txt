@@ -7,13 +7,14 @@ find_package(Eigen REQUIRED)
 
 find_path (FFTW_INCLUDES fftw3.h)
 find_library (FFTW_LIBRARIES NAMES fftw3)
-## find_package(fftw3 REQUIRED)
-## mark_as_advanced (FFTW_LIBRARIES FFTW_INCLUDES)
+
+find_path (SoundTouch_INCLUDES soundtouch/SoundTouch.h /usr/local/include /usr/include)
+find_library (SoundTouch_LIBRARIES NAMES SoundTouch)
 
 include_directories(${Eigen_INCLUDE_DIRS})
 include_directories(${EIGEN_INCLUDE_DIRS})
 include_directories(${FFTW_INCLUDES})
-## include_directories(${FFTW_INCLUDES_DIRS})
+include_directories(${SoundTouch_INCLUDES})
 
 ## include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
@@ -25,6 +26,10 @@ catkin_package()
 
 add_executable(eus_fftw_test src/eus_fftw_test.c)
 TARGET_LINK_LIBRARIES(eus_fftw_test ${FFTW_LIBRARIES})
+
+add_executable(eus_soundtouch_test src/eus_soundtouch_test.cpp)
+TARGET_LINK_LIBRARIES(eus_soundtouch_test ${SoundTouch_LIBRARIES})
+
 add_library(eus_fftw SHARED src/eus_fftw_lib.cpp)
 TARGET_LINK_LIBRARIES(eus_fftw ${FFTW_LIBRARIES})
 
