@@ -36,7 +36,7 @@ int putSampleSoundTouch(int* array, int size, int channel){
   int i;
   checkSizeOfBuffer(size);
   for ( i=0; i<size ; i++ ){
-    short_sound_array_buf[i] = (short)array[i] ;
+    short_sound_array_buf[i] = (SAMPLETYPE)array[i] ;
   }
   pSoundTouch->putSamples(short_sound_array_buf, size/channel);
   return (size/channel);
