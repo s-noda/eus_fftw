@@ -33,3 +33,6 @@ TARGET_LINK_LIBRARIES(eus_soundtouch_test ${SoundTouch_LIBRARIES})
 add_library(eus_fftw SHARED src/eus_fftw_lib.cpp)
 TARGET_LINK_LIBRARIES(eus_fftw ${FFTW_LIBRARIES})
 
+add_library(eus_soundtouch SHARED src/eus_soundtouch_lib.cpp)
+TARGET_LINK_LIBRARIES(eus_soundtouch ${SoundTouch_LIBRARIES})
+
