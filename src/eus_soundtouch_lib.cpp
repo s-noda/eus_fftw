@@ -20,18 +20,28 @@ static soundtouch::SoundTouch* pSoundTouch = &soundTouch;
 // }
 
 extern "C" {
-  int setParamSoundTouch(int samplerate, int channel, float tempo, float pitch, float rate){
+  int setParamSoundTouch(int samplerate, int channel, double tempo, double pitch, double rate){
+    std::cout << "[setParamSoundTouch]" << std::endl;
+    std::cout << "  samplerate: " << samplerate << std::endl;
+    std::cout << "  channel   : " << channel << std::endl;
+    std::cout << "  tempo     : " << tempo << std::endl;
+    std::cout << "  pitch     : " << pitch << std::endl;
+    std::cout << "  rate      : " << rate << std::endl;
     pSoundTouch->setSampleRate(samplerate);
     pSoundTouch->setChannels(channel);
-    pSoundTouch->setTempoChange(tempo);
-    pSoundTouch->setPitchSemiTones(pitch);
-    pSoundTouch->setRateChange(rate);
+    pSoundTouch->setTempoChange((float)tempo);
+    pSoundTouch->setPitchSemiTones((float)pitch);
+    pSoundTouch->setRateChange((float)rate);
+    //pSoundTouch->setSetting(SETTING_USE_QUICKSEEK, 0);
+    //pSoundTouch->setSetting(SETTING_USE_AA_FILTER, 1);
+    //pSoundTouch->setSetting(0, 0);
+    //pSoundTouch->setSetting(1, 1);
     return 1;
   }
 }
 
 extern "C" {
-  int putSampleSoundTouch(int* array, int size, int channel){
+  int putSampleSoundTouch(double* array, int size, int channel){
     int i;
     checkSizeOfBuffer(size);
     for ( i=0; i<size ; i++ ){
@@ -43,12 +53,12 @@ extern "C" {
 }
 
 extern "C" {
-  int receiveSampleSoundTouch(int* array, int size, int channel){
+  int receiveSampleSoundTouch(double* array, int size, int channel){
     int i ,ret;
     checkSizeOfBuffer(size);
     ret = pSoundTouch->receiveSamples(short_sound_array_buf, size/channel);
     for ( i=0; i<size ; i++ ){
-      array[i] = (int)short_sound_array_buf[i];
+      array[i] = (double)short_sound_array_buf[i];
     }
     return ret ;
   }

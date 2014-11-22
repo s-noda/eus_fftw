@@ -14,6 +14,9 @@ int short_sound_array_buf_size=-1;
 
 void checkSizeOfBuffer(int size){
   if ( size > short_sound_array_buf_size ){
+    std::cout << "[checkSizeOfBuffer] resize "
+	      << short_sound_array_buf_size
+	      << " -> " << size << std::endl ;
     free(short_sound_array_buf);
     short_sound_array_buf = (SAMPLETYPE *)malloc( sizeof(SAMPLETYPE) * size );
     short_sound_array_buf_size = size ;
