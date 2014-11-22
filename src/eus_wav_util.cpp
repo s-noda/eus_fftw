@@ -2,6 +2,7 @@
 #include <soundtouch/SoundTouch.h>
 #include <soundtouch/BPMDetect.h>
 #include "WavFile.h"
+#include "WavFile.cpp"
 
 using namespace soundtouch;
 using namespace std;
@@ -19,43 +20,34 @@ void checkSizeOfBuffer(int size){
   }
 }
 
-extern "C"{
-  void closeInWavFile(){
-    if ( inFile != NULL ) {
-      delete inFile;
-    }
+void _closeInWavFile(){
+  if ( inFile != NULL ) {
+    delete inFile;
   }
 }
 
-extern "C"{
-  void openInWavFile(char *file_name, int* ret) {
-    if ( inFile != NULL ) {
-      delete inFile;
-    }
-    inFile = new WavInFile(file_name);
-    int bits = (int)(inFile)->getNumBits();
-    int samplerate = (int)(inFile)->getSampleRate();
-    int channels = (int)(inFile)->getNumChannels();
-    // *outFile = new WavOutFile(params->outFileName, samplerate, bits, channels);
-    ret[0]=bits;
-    ret[1]=samplerate;
-    ret[2]=channels;
+
+void _openInWavFile(char *file_name, int* ret) {
+  _closeInWavFile();
+  inFile = new WavInFile(file_name);
+  int bits = (int)(inFile)->getNumBits();
+  int samplerate = (int)(inFile)->getSampleRate();
+  int channels = (int)(inFile)->getNumChannels();
+  // *outFile = new WavOutFile(params->outFileName, samplerate, bits, channels);
+  ret[0]=bits;
+  ret[1]=samplerate;
+  ret[2]=channels;
+}
+
+void _closeOutWavFile(){
+  if ( outFile != NULL ) {
+    delete outFile;
   }
 }
 
-extern "C"{
-  void closeOutWavFile(){
-    if ( outFile != NULL ) {
-      delete outFile;
-    }
-  }
-}
-
-extern "C"{
-  void openOutWavFile(char *file_name, int samplerate, int bits, int channels) {
-    closeOutWavFile();
-    outFile = new WavOutFile(file_name, samplerate, bits, channels);
-  }
+void _openOutWavFile(char *file_name, int samplerate, int bits, int channels) {
+  _closeOutWavFile();
+  outFile = new WavOutFile(file_name, samplerate, bits, channels);
 }
 
 int _readWavFile(WavInFile *inFile, int* buffer, int size){
@@ -80,14 +72,3 @@ void _writeWavFile(WavOutFile *outFile, int* buffer, int size){
   outFile->write(short_sound_array_buf, size);
 }
 
-extern "C"{
-  int readWavFile(int* buffer, int size){
-    return _readWavFile(inFile, buffer, size);
-  }
-}
-
-extern "C"{
-  void writeWavFile(int* buffer, int size){
-    return _writeWavFile(outFile, buffer, size);
-  }
-}

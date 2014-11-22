@@ -69,3 +69,36 @@ extern "C" {
   }
 }
 
+// wav utils
+
+extern "C"{
+  void closeInWavFile(){ _closeInWavFile(); }
+}
+
+extern "C"{
+  void openInWavFile(char *file_name, int* buf) {
+    _openInWavFile(file_name,buf);
+  }
+}
+
+extern "C"{
+  void closeOutWavFile(){ _closeOutWavFile(); }
+}
+
+extern "C"{
+  void openOutWavFile(char *file_name, int samplerate, int bits, int channels) {
+    _openOutWavFile(file_name,samplerate,bits,channels);
+  }
+}
+
+extern "C"{
+  int readWavFile(int* buffer, int size){
+    return _readWavFile(inFile, buffer, size);
+  }
+}
+
+extern "C"{
+  void writeWavFile(int* buffer, int size){
+    return _writeWavFile(outFile, buffer, size);
+  }
+}
