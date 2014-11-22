@@ -8,7 +8,7 @@ find_package(Eigen REQUIRED)
 find_path (FFTW_INCLUDES fftw3.h)
 find_library (FFTW_LIBRARIES NAMES fftw3)
 
-find_path (SoundTouch_INCLUDES soundtouch/SoundTouch.h /usr/local/include /usr/include)
+find_path (SoundTouch_INCLUDES soundtouch /usr/local/include /usr/include)
 find_library (SoundTouch_LIBRARIES NAMES SoundTouch)
 
 include_directories(${Eigen_INCLUDE_DIRS})
@@ -18,6 +18,7 @@ include_directories(${SoundTouch_INCLUDES})
 
 ## include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/3rdparty)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
