@@ -13,7 +13,7 @@ SAMPLETYPE* short_sound_array_buf;
 int short_sound_array_buf_size=-1;
 
 void checkSizeOfBuffer(int size){
-  if ( size <= short_sound_array_buf_size ){
+  if ( size > short_sound_array_buf_size ){
     free(short_sound_array_buf);
     short_sound_array_buf = (SAMPLETYPE *)malloc( sizeof(SAMPLETYPE) * size );
     short_sound_array_buf_size = size ;
@@ -34,8 +34,8 @@ void _openInWavFile(char *file_name, int* ret) {
   int samplerate = (int)(inFile)->getSampleRate();
   int channels = (int)(inFile)->getNumChannels();
   // *outFile = new WavOutFile(params->outFileName, samplerate, bits, channels);
-  ret[0]=bits;
-  ret[1]=samplerate;
+  ret[0]=samplerate;
+  ret[1]=bits;
   ret[2]=channels;
 }
 
