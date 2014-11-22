@@ -20,6 +20,14 @@ void checkSizeOfBuffer(int size){
 }
 
 extern "C"{
+  void closeInWavFile(){
+    if ( inFile != NULL ) {
+      delete inFile;
+    }
+  }
+}
+
+extern "C"{
   void openInWavFile(char *file_name, int* ret) {
     if ( inFile != NULL ) {
       delete inFile;
