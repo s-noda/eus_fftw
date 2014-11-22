@@ -55,17 +55,53 @@
   ()
   :integer)
 
+(defforeign open-in-wav-file
+  *eus-soundtouch-plugin*
+  "openInWavFile"
+  (:string :string)
+  :integer)
+
+(defforeign open-out-wav-file
+  *eus-soundtouch-plugin*
+  "openOutWavFile"
+  (:string :integer :integer :integer)
+  :integer)
+
+(defforeign close-out-wav-file
+  *eus-soundtouch-plugin*
+  "closeOutWavFile"
+  ()
+  :integer)
+
+(defforeign close-in-wav-file
+  *eus-soundtouch-plugin*
+  "closeInWavFile"
+  ()
+  :integer)
+
+(defforeign read-wav-file
+  *eus-soundtouch-plugin*
+  "readWavFile"
+  (:string :integer)
+  :integer)
+
+(defforeign write-wav-file
+  *eus-soundtouch-plugin*
+  "writeWavFile"
+  (:string :integer)
+  :integer)
+
 (defun test-eus-soundtouch
-  (&rest
-   args
-   &key
-   (a (float-vector 1 2 3 4))
-   (b (instantiate float-vector (* 2 (length a))))
-   (n (length a))
+  (&key
+   (inpath "voice.wav")
+   (info-buf (integer-vector 0 0 0))
+   (data-buf (instantiate integer-vector 1024))
+   (outpath "out.wav")
    )
-  (format t " -- input value~% ~A~%" a)
-  (fft-forward a b n)
-  (format t " -- output value~% ~A~%" b)
-  (fft-backward b a n)
-  (format t " -- retransform~% ~A~%" a)
+  (open-in-wav-file inpath info-buf)
+  (open-out-wav-file outpath (aref info-buf 1) (aref info-buf 2))
+  (read-wav-file data-buf (length data-buf))
+  (write-wav-file data-buf (length data-buf))
+  (close-out-wav-file)
+  (close-in-wav-file)
   )
