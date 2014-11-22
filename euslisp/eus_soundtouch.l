@@ -136,10 +136,10 @@
       (plusp (setq size (read-wav-file data-buf (length data-buf))))
     (put-sample-sound-touch data-buf size channels)
     (while (plusp (print (setq size (receive-sample-sound-touch data-buf size channels))))
-      (write-wav-file data-buf (/ size (max 1 channels)))))
+      (write-wav-file data-buf (* size (max 1 channels)))))
   (flush-sound-touch)
   (while (plusp (setq size (receive-sample-sound-touch data-buf size channels)))
-    (write-wav-file data-buf (/ size (max 1 channels))))
+    (write-wav-file data-buf (* size (max 1 channels))))
   ;;
   (close-out-wav-file)
   (close-in-wav-file)
@@ -148,8 +148,10 @@
 #|
 
 roseus eus_soundtouch.l
-(test-pitch-shift :pitch 5.0)
+(test-pitch-shift :pitch 10.0)
+;;(test-copy-wav-file)
 (exit)
+aplay out.wav
 
-;;test-copy-wav-file
+
 
