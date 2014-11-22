@@ -2,4 +2,4 @@ eus_fftw
 ================
 
 * fftw euslist interface
-* just catkin_make
+* run install script under 3rdparty and catkin_make
