@@ -27,7 +27,7 @@ void _closeInWavFile(){
 }
 
 
-void _openInWavFile(char *file_name, int* ret) {
+void _openInWavFile(char *file_name, double* ret) {
   _closeInWavFile();
   inFile = new WavInFile(file_name);
   int bits = (int)(inFile)->getNumBits();
@@ -50,7 +50,7 @@ void _openOutWavFile(char *file_name, int samplerate, int bits, int channels) {
   outFile = new WavOutFile(file_name, samplerate, bits, channels);
 }
 
-int _readWavFile(WavInFile *inFile, int* buffer, int size){
+int _readWavFile(WavInFile *inFile, double* buffer, int size){
   int num = -1;
   int i;
   checkSizeOfBuffer(size);
@@ -58,12 +58,12 @@ int _readWavFile(WavInFile *inFile, int* buffer, int size){
     num = inFile->read(short_sound_array_buf, size);
   }
   for ( i=0 ; i<num ; i++ ){
-    buffer[i] = (int)short_sound_array_buf[i];
+    buffer[i] = (double)short_sound_array_buf[i];
   }
   return num;
 }
 
-void _writeWavFile(WavOutFile *outFile, int* buffer, int size){
+void _writeWavFile(WavOutFile *outFile, double* buffer, int size){
   int i;
   checkSizeOfBuffer(size);
   for ( i=0 ; i<size ; i++ ){

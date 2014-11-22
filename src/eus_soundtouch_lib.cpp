@@ -76,7 +76,7 @@ extern "C"{
 }
 
 extern "C"{
-  void openInWavFile(char *file_name, int* buf) {
+  void openInWavFile(char *file_name, double* buf) {
     _openInWavFile(file_name,buf);
   }
 }
@@ -92,13 +92,13 @@ extern "C"{
 }
 
 extern "C"{
-  int readWavFile(int* buffer, int size){
+  int readWavFile(double* buffer, int size){
     return _readWavFile(inFile, buffer, size);
   }
 }
 
 extern "C"{
-  void writeWavFile(int* buffer, int size){
+  void writeWavFile(double* buffer, int size){
     return _writeWavFile(outFile, buffer, size);
   }
 }
