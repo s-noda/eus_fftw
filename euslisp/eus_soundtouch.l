@@ -94,14 +94,26 @@
 (defun test-eus-soundtouch
   (&key
    (inpath "voice.wav")
-   (info-buf (integer-vector 0 0 0))
-   (data-buf (instantiate integer-vector 1024))
+   (info-buf (float-vector 0 0 0))
+   (data-buf (instantiate float-vector 1024))
+   size
    (outpath "out.wav")
    )
   (open-in-wav-file inpath info-buf)
-  (open-out-wav-file outpath (aref info-buf 1) (aref info-buf 2))
-  (read-wav-file data-buf (length data-buf))
-  (write-wav-file data-buf (length data-buf))
+  (open-out-wav-file outpath
+		     (round (aref info-buf 0))
+		     (round (aref info-buf 1))
+		     (round (aref info-buf 2)))
+  (while
+  ;; (dotimes (i 5)
+      (plusp (print (setq size (read-wav-file data-buf (length data-buf)))))
+    (write-wav-file data-buf (/ size (max 1 (round (aref info-buf 2))))))
   (close-out-wav-file)
   (close-in-wav-file)
   )
+
+#|
+
+roseus eus_soundtouch.l
+test-eus-soundtouch
+

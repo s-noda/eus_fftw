@@ -51,7 +51,7 @@ void _openOutWavFile(char *file_name, int samplerate, int bits, int channels) {
 }
 
 int _readWavFile(WavInFile *inFile, double* buffer, int size){
-  int num = -1;
+  int num = 0; // minup integer equal to eus int max
   int i;
   checkSizeOfBuffer(size);
   if (inFile->eof() == 0){
